@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "639599143481",
+    "firebase_url": "https://dingoprototype-e13f6.firebaseio.com",
+    "project_id": "dingoprototype-e13f6",
+    "storage_bucket": "dingoprototype-e13f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639599143481:android:2746a9dba2a971a391bbe8",
+        "android_client_info": {
+          "package_name": "co.dotslab.dingoprototype"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639599143481-hsiu4p9ocmaan46og4p2bp9muil6kdjh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgx3WgQlAQkwROTaqSf-zQjCdTnipEVt8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "639599143481-hsiu4p9ocmaan46og4p2bp9muil6kdjh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "639599143481-7g79kj8pvibda3i29580690qg0snhp14.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "tech.dotslab.dingo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
