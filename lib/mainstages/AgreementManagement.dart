@@ -76,7 +76,7 @@ class _AgreementManagementState extends State<AgreementManagement> {
                               );
                             }
                             final agreementList =
-                                List.from((snapshot.data.data() as Map)['동의서']);
+                                List.from((snapshot.data!.data() as Map)['동의서']);
                             agreementList.sort((a, b) {
                               final aDate = a['createdAt'].toDate();
                               final bDate = b['createdAt'].toDate();
@@ -131,12 +131,12 @@ class _AgreementManagementState extends State<AgreementManagement> {
 
 class _AgreementButton extends StatelessWidget {
   _AgreementButton({
-    @required this.mainTitle,
-    @required this.subTitle,
-    @required this.content,
-    @required this.date,
-    @required this.isAgreed,
-    @required this.onAuthenticateComplete,
+    required this.mainTitle,
+    required this.subTitle,
+    required this.content,
+    required this.date,
+    required this.isAgreed,
+    required this.onAuthenticateComplete,
     this.onTap,
   });
 
@@ -146,7 +146,7 @@ class _AgreementButton extends StatelessWidget {
   final String subTitle;
   final String content;
   final String date;
-  final Function onTap;
+  final Function? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +157,7 @@ class _AgreementButton extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(
             width: 1.0,
-            color: isAgreed ? Colors.grey[500] : Colors.blueAccent,
+            color: isAgreed ? Colors.grey[500]! : Colors.blueAccent,
           ),
           borderRadius: BorderRadius.all(
             Radius.circular(

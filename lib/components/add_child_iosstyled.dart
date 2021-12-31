@@ -5,9 +5,9 @@ import 'package:flutter/cupertino.dart';
 class AddChildIOSStyled extends StatefulWidget {
   AddChildIOSStyled({this.name, this.age, this.childList});
 
-  String name;
-  int age;
-  final List<Widget> childList;
+  String? name;
+  int? age;
+  final List<Widget>? childList;
 
   @override
   _AddChildIOSStyledState createState() => _AddChildIOSStyledState();
@@ -57,13 +57,13 @@ class _AddChildIOSStyledState extends State<AddChildIOSStyled> {
               // TODO: what should be done?
             } else {
               setState(() {
-                widget.childList.add(
+                widget.childList!.add(
                   ChildCard(
-                    childName: widget.name,
-                    age: widget.age,
+                    childName: widget.name!,
+                    age: widget.age!,
                   ),
                 );
-                widget.childList.add(
+                widget.childList!.add(
                   SizedBox(
                       width: 10.0
                   ),

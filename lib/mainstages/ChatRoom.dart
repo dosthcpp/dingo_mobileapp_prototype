@@ -17,7 +17,7 @@ class ChatRoom extends StatefulWidget {
 class _ChatRoomState extends State<ChatRoom> {
   final textEditingController = TextEditingController();
 
-  String messageText;
+  String? messageText;
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +96,7 @@ class _ChatRoomState extends State<ChatRoom> {
 //                              final String kindergartenName =
 //                                  snapshot.data[userDataItem[5]].toString(); // 방이름
                           final _data = snapshot
-                              .data.data() as Map;
+                              .data!.data() as Map;
                           print(_data);
                             final String childName = _data[userDataItem[2]]
                                 .toString(); // 원아 이름
@@ -265,12 +265,11 @@ class _MessagesStream extends StatelessWidget {
           );
         }
         // TODO: order data by time directly on the database
-        final messages = snapshot.data.docs; // Flutter inline variable
+        final messages = snapshot.data!.docs; // Flutter inline variable
         List<_MessageBubble> messageBubbles = [];
         for (var message in messages) {
           final msg = message.data() as Map;
           final String className = msg['className'];
-          final String childName = msg['childName'];
           final String messageText = msg['text']; // messages from FirebaseData
           final String messageSender = msg['sender'];
           final DateTime time = DateTime.parse(msg['time']);
@@ -281,7 +280,6 @@ class _MessagesStream extends StatelessWidget {
             // TODO: following kindergarten code, make a new chatroom.
             className: className,
             sender: messageSender,
-            childName: childName,
             text: messageText,
             time: time.toString(),
             isMe: currentUser == messageSender,
@@ -336,7 +334,7 @@ class _MessagesStream extends StatelessWidget {
 }
 
 class _CustomDivider extends StatelessWidget {
-  _CustomDivider({@required this.time});
+  _CustomDivider({required this.time});
 
   final DateTime time;
 
@@ -382,17 +380,15 @@ class _CustomDivider extends StatelessWidget {
 
 class _MessageBubble extends StatelessWidget {
   _MessageBubble({
-    @required this.className,
+    required this.className,
     this.sender,
-    this.childName,
-    @required this.text,
-    @required this.time,
-    @required this.isMe,
+    required this.text,
+    required this.time,
+    required this.isMe,
   });
 
   final String className;
-  final String sender;
-  final String childName;
+  final String? sender;
   final String text;
   final String time;
   final bool isMe;
@@ -421,7 +417,7 @@ class _MessageBubble extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  childName != null ? "$childName 학부모님" : "[새싹반] 김시우 선생님",
+                  "[새싹반] 김시우 선생님",
                   style: TextStyle(
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold,
@@ -433,7 +429,7 @@ class _MessageBubble extends StatelessWidget {
                   children: <Widget>[
                     Material(
                       borderRadius: kBorderRadiusIfIsNotMe,
-                      color: Colors.blue,
+                      color: Colors.black54,
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: 5.0,
@@ -480,7 +476,7 @@ class _MessageBubble extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Text(
-                  "$childName 학부모님",
+                  "김시우 학부모님",
                   style: TextStyle(
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold,
@@ -503,7 +499,7 @@ class _MessageBubble extends StatelessWidget {
                     ),
                     Material(
                       borderRadius: kBorderRadiusIfIsMe,
-                      color: Colors.black54,
+                      color: Colors.blue,
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: 5.0,

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class GeneralTextField extends StatelessWidget {
   GeneralTextField(
-      {@required this.title, this.obscureText, this.type, this.func});
+      {required this.title, this.obscureText = false, this.type, this.func});
 
   final String title;
   bool obscureText;
-  TextInputType type;
-  Function func;
+  TextInputType? type;
+  void Function(String)? func;
 
   @override
   Widget build(BuildContext context) {

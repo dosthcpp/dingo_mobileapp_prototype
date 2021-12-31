@@ -108,18 +108,16 @@ class SettingsPage extends StatelessWidget {
 
 class _SettingsMenuItem extends StatelessWidget {
   _SettingsMenuItem({
-    @required this.imageName,
-    @required this.title,
+    required this.imageName,
+    required this.title,
     this.versionInfo,
     this.isAnnounceButton = false,
-    this.onTap,
   });
 
   final String imageName;
   final String title;
-  final String versionInfo;
+  final String? versionInfo;
   final bool isAnnounceButton;
-  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -150,44 +148,47 @@ class _SettingsMenuItem extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    versionInfo != null ? Text(
-                      versionInfo,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 10.0,
-                      ),
-                    ) : SizedBox(),
+                    versionInfo != null
+                        ? Text(
+                            versionInfo!,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 10.0,
+                            ),
+                          )
+                        : SizedBox(),
                   ],
                 ),
                 isAnnounceButton == true
                     ? Padding(
-                  padding: EdgeInsets.only(
-                    left: 5.0,
-                  ),
-                  child: Material(
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        color: Colors.red,
-                      ),
-                      borderRadius: BorderRadius.circular(4.0),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(1.5),
-                      child: Text(
-                        "NEW",
-                        style: TextStyle(
-                          fontSize: 7.5,
-                          color: Colors.red,
+                        padding: EdgeInsets.only(
+                          left: 5.0,
                         ),
-                      ),
-                    ),
-                  ),
-                ) : SizedBox(),
+                        child: Material(
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              color: Colors.red,
+                            ),
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(1.5),
+                            child: Text(
+                              "NEW",
+                              style: TextStyle(
+                                fontSize: 7.5,
+                                color: Colors.red,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    : SizedBox(),
               ],
             ),
           ],
         ),
-        onPressed: onTap,
+        onPressed: () {},
       ),
     );
   }

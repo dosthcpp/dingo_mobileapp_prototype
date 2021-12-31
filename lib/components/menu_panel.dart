@@ -1,12 +1,11 @@
 import 'package:dingo_prototype/mainstages/Announcement.dart';
-import 'package:dingo_prototype/old/gov_business.dart';
 import 'package:dingo_prototype/mainstages/SettingsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:dingo_prototype/components/general_dialog.dart';
 
 class MenuPanel extends StatelessWidget {
   MenuPanel({
-    @required this.isLoggedin,
+    required this.isLoggedin,
   });
 
   bool isLoggedin;
@@ -51,12 +50,12 @@ class MenuPanel extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    _CustomIconButton(
-                      imageName: 'images/gov_business.png',
-                      title: '정부지원사업',
-                      id: GovBusiness.id,
-                      isLoggedin: isLoggedin,
-                    ),
+                    // _CustomIconButton(
+                    //   imageName: 'images/gov_business.png',
+                    //   title: '정부지원사업',
+                    //   id: GovBusiness.id,
+                    //   isLoggedin: isLoggedin,
+                    // ),
                     _CustomIconButton(
                       imageName: 'images/settings.png',
                       title: '설정',
@@ -79,13 +78,13 @@ class _CustomIconButton extends StatelessWidget {
     this.imageName,
     this.title,
     this.id,
-    this.isLoggedin,
+    this.isLoggedin = false,
   });
 
   final bool isLoggedin;
-  final String imageName;
-  final String title;
-  final String id;
+  final String? imageName;
+  final String? title;
+  final String? id;
 
   @override
   Widget build(BuildContext context) {
@@ -96,11 +95,11 @@ class _CustomIconButton extends StatelessWidget {
           height: 60.0,
           child: IconButton(
             icon: Image.asset(
-              imageName,
+              imageName!,
             ),
             onPressed: () {
               isLoggedin
-                  ? Navigator.pushNamed(context, id)
+                  ? Navigator.pushNamed(context, id!)
                   : showDialog(
                       context: context,
                       builder: (context) => GeneralDialog(
@@ -114,7 +113,7 @@ class _CustomIconButton extends StatelessWidget {
           ),
         ),
         Text(
-          title,
+          title!,
           style: TextStyle(
             fontSize: 12.0,
           ),

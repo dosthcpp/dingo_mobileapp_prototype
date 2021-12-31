@@ -4,12 +4,12 @@ import 'dart:io';
 
 class GeneralDialog extends StatelessWidget {
   GeneralDialog({
-    @required this.title,
-    @required this.onTap,
+    required this.title,
+    required this.onTap,
   });
 
   final String title;
-  final Function onTap;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class GeneralDialog extends StatelessWidget {
           ),
         ),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: Text(
               "확인",
               style: TextStyle(
@@ -61,5 +61,6 @@ class GeneralDialog extends StatelessWidget {
         ],
       );
     }
+    return SizedBox();
   }
 }

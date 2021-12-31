@@ -96,7 +96,7 @@ class _AnnouncementPageState extends State<AnnouncementPage> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(
-                          color: Colors.grey[200],
+                          color: Colors.grey[200]!,
                         ),
                       ),
                       child: Center(
@@ -192,24 +192,24 @@ class _AnnouncementPageState extends State<AnnouncementPage> {
                               );
                             }
                             List cardList = [];
-                            if((snapshot.data.data() as Map).containsKey('가정통신문')) {
+                            if((snapshot.data!.data() as Map).containsKey('가정통신문')) {
                               for (var i = 0;
                               i <
-                                  (snapshot.data.data() as Map)['가정통신문']
+                                  (snapshot.data!.data() as Map)['가정통신문']
                                       .length;
                               ++i) {
                                 Map<String, dynamic> map =
-                                (snapshot.data.data() as Map)['가정통신문'][i];
+                                (snapshot.data!.data() as Map)['가정통신문'][i];
                                 map['type'] = '가정통신문';
                                 cardList.add(map);
                               }
                             }
-                            if((snapshot.data.data() as Map).containsKey('알림장')) {
+                            if((snapshot.data!.data() as Map).containsKey('알림장')) {
                               for (var i = 0;
-                              i < (snapshot.data.data() as Map)['알림장'].length;
+                              i < (snapshot.data!.data() as Map)['알림장'].length;
                               ++i) {
                                 Map<String, dynamic> map =
-                                (snapshot.data.data() as Map)['알림장'][i];
+                                (snapshot.data!.data() as Map)['알림장'][i];
                                 map['type'] = '알림장';
                                 cardList.add(map);
                               }
@@ -307,11 +307,11 @@ class _AnnouncementPageState extends State<AnnouncementPage> {
 
 class _FoodMenuCard extends StatelessWidget {
   _FoodMenuCard(
-      {@required this.kinderName,
-      @required this.morningSnackMenu,
-      @required this.lunchMenu,
-      @required this.afternoonSnackMenu,
-      @required this.date});
+      {required this.kinderName,
+      required this.morningSnackMenu,
+      required this.lunchMenu,
+      required this.afternoonSnackMenu,
+      required this.date});
 
   final String kinderName;
   final String morningSnackMenu;
@@ -482,7 +482,7 @@ class _FoodMenuCard extends StatelessWidget {
           ),
           border: Border.all(
             width: 3.0,
-            color: Colors.grey[200],
+            color: Colors.grey[200]!,
           ),
         ),
         child: Padding(
@@ -518,17 +518,17 @@ class _FoodMenuCard extends StatelessWidget {
 
 class _AlertCard extends StatelessWidget {
   _AlertCard({
-    @required this.alertType,
-    @required this.className,
-    @required this.date,
+    required this.alertType,
+    required this.className,
+    required this.date,
     this.title,
-    @required this.content,
+    required this.content,
   });
 
   final String alertType;
   final String className;
   final DateTime date;
-  final String title;
+  final String? title;
   final String content;
 
   @override
@@ -640,7 +640,7 @@ class _AlertCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         Text(
-                          title,
+                          title!,
                           style: TextStyle(
                             fontSize: 14.0,
                             fontWeight: FontWeight.bold,
@@ -687,7 +687,7 @@ class _AlertCard extends StatelessWidget {
 }
 
 class _AnnouncementCard extends StatelessWidget {
-  _AnnouncementCard({@required this.date});
+  _AnnouncementCard({required this.date});
 
   final String date;
 
@@ -760,7 +760,7 @@ class _CalendarState extends State<_Calendar> {
   static const String noEventText = '이 날은 일정이 없습니다.';
   static String calendarText = noEventText;
   bool isCalendarEmpty = false;
-  String day;
+  String? day;
 
   EventList<Event> _markedDateMap = EventList<Event>(
     events: {
@@ -959,7 +959,7 @@ class _CalendarState extends State<_Calendar> {
     if (isCalendarEmpty) {
       calendarText = _markedDateMap
           .getEvents(DateTime(date.year, date.month, date.day))[0]
-          .title;
+          .title!;
       day = _markedDateMap
           .getEvents(DateTime(date.year, date.month, date.day))[0]
           .date

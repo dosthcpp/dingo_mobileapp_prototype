@@ -65,8 +65,8 @@ class _AnimatedStartingPageState extends State<AnimatedStartingPage> {
 }
 
 class AnimatedWave extends StatelessWidget {
-  final double height;
-  final double speed;
+  final double? height;
+  final double? speed;
   final double offset;
 
   AnimatedWave({this.height, this.speed, this.offset = 0.0});
@@ -77,11 +77,11 @@ class AnimatedWave extends StatelessWidget {
       return Container(
         height: height,
         width: constraints.biggest.width,
-        child: ControlledAnimation(
-            playback: Playback.LOOP,
-            duration: Duration(milliseconds: (5000 / speed).round()),
+        child: PlayAnimation(
+            // playback: Playback.LOOP,
+            duration: Duration(milliseconds: (5000 / speed!).round()),
             tween: Tween(begin: 0.0, end: 2 * pi),
-            builder: (context, value) {
+            builder: (context, _, double value) {
               return CustomPaint(
                 foregroundPainter: CurvePainter(value + offset),
               );
@@ -127,36 +127,52 @@ class CurvePainter extends CustomPainter {
 class AnimatedBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final tween = MultiTrackTween(
-      [
-        Track("color1").add(
-          Duration(seconds: 3),
-          ColorTween(
-            begin: Color(0xFF99d3bd),
-            end: Colors.lightBlue.shade900,
-          ),
+    final tween = MultiTween();
+    tween.add(
+        "color1",
+        ColorTween(
+          begin: Color(0xFF99d3bd),
+          end: Colors.lightBlue.shade900,
         ),
-        Track("color2").add(
-          Duration(seconds: 3),
-          ColorTween(
-            begin: Colors.lightBlue.shade900,
-            end: Colors.blue.shade600,
-          ),
-        )
-      ],
-    );
+        Duration(seconds: 3));
+    tween.add(
+        "color2",
+        ColorTween(
+          begin: Colors.lightBlue.shade900,
+          end: Colors.blue.shade600,
+        ),
+        Duration(seconds: 3));
 
-    return ControlledAnimation(
-      playback: Playback.MIRROR,
+    // [
+    //   Track("color1").add(
+    //     Duration(seconds: 3),
+    //     ColorTween(
+    //       begin: Color(0xFF99d3bd),
+    //       end: Colors.lightBlue.shade900,
+    //     ),
+    //   ),
+    //   Track("color2").add(
+    //     Duration(seconds: 3),
+    //     ColorTween(
+    //       begin: Colors.lightBlue.shade900,
+    //       end: Colors.blue.shade600,
+    //     ),
+    //   )
+    // ]
+
+    return PlayAnimation(
+      // playback: Playback.MIRROR,
       tween: tween,
       duration: tween.duration,
-      builder: (context, animation) {
+      builder: (context, _, MultiTweenValues animation) {
         return Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [animation["color1"], animation["color2"]])),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [animation.get("color1"), animation.get("color2")],
+            ),
+          ),
         );
       },
     );

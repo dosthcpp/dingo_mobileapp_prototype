@@ -4,7 +4,7 @@ import 'package:dingo_prototype/mainstages/SettingsPage.dart';
 
 class BottomNavigatorBar extends StatelessWidget {
 
-  final Function onTap;
+  final void Function(int)? onTap;
 
   BottomNavigatorBar({this.onTap});
   @override
@@ -13,7 +13,7 @@ class BottomNavigatorBar extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       showSelectedLabels: false,
       showUnselectedLabels: false,
-      onTap: onTap,
+      onTap: onTap!,
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           title: Text(

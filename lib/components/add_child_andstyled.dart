@@ -4,9 +4,9 @@ import 'package:dingo_prototype/components/child_card.dart';
 class AddChildAndStyled extends StatefulWidget {
   AddChildAndStyled({this.name, this.age, this.childList});
 
-  String name;
-  int age;
-  final List<Widget> childList;
+  String? name;
+  int? age;
+  final List<Widget>? childList;
 
   @override
   _AddChildAndStyledState createState() => _AddChildAndStyledState();
@@ -48,21 +48,21 @@ class _AddChildAndStyledState extends State<AddChildAndStyled> {
             ],
           )
       ),
-      actions: <Widget>[
-        FlatButton(
+      actions: [
+        TextButton(
           child: Text("확인"),
           onPressed: () {
             if(widget.name == null && widget.age == null) {
               // TODO: what should be done?
             } else {
               setState(() {
-                widget.childList.add(
+                widget.childList!.add(
                   ChildCard(
-                    childName: widget.name,
-                    age: widget.age,
+                    childName: widget.name!,
+                    age: widget.age!,
                   ),
                 );
-                widget.childList.add(
+                widget.childList!.add(
                   SizedBox(
                       width: 10.0
                   ),
@@ -74,7 +74,7 @@ class _AddChildAndStyledState extends State<AddChildAndStyled> {
             Navigator.pop(context);
           },
         ),
-        FlatButton(
+        TextButton(
           child: Text("닫기"),
           onPressed: () {
             Navigator.pop(context);

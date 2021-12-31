@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 class AppBarDesign extends StatelessWidget {
   bool isMainScreen = false;
   final actionButtons;
-  final Function onTap;
-  final String title;
+  final VoidCallback? onTap;
+  final String? title;
 
   AppBarDesign({
-    @required this.isMainScreen,
+    required this.isMainScreen,
     this.actionButtons,
     this.onTap,
     this.title,
@@ -30,7 +30,7 @@ class AppBarDesign extends StatelessWidget {
       centerTitle: true,
       title: title != null
           ? Text(
-              title,
+              title!,
               style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,

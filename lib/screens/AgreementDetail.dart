@@ -6,9 +6,9 @@ import 'package:flutter_html/shims/dart_ui_real.dart';
 final _store = FirebaseFirestore.instance;
 
 class AgreementDetailArgs {
-  final String title, content;
+  final String? title, content;
   final bool isAgreed;
-  final Function onTap;
+  final VoidCallback? onTap;
 
   AgreementDetailArgs(
       {this.title, this.content, this.isAgreed = false, this.onTap});
@@ -20,12 +20,12 @@ class AgreementDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AgreementDetailArgs args =
-        ModalRoute.of(context).settings.arguments as AgreementDetailArgs;
+        ModalRoute.of(context)!.settings.arguments as AgreementDetailArgs;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: args.isAgreed ? Colors.black54 : Colors.blue,
         title: Text(
-          args.title,
+          args.title!,
           style: TextStyle(
             color: Colors.white,
             fontSize: 22.0,
@@ -43,7 +43,7 @@ class AgreementDetail extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             }
-            final _data = snapshot.data.data() as Map;
+            final _data = snapshot.data!.data() as Map;
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -132,7 +132,7 @@ class AgreementDetail extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onPressed: args.onTap,
+                  onPressed: args.onTap!,
                 ),
               ],
             );

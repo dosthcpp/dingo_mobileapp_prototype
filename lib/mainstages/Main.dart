@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:dingo_prototype/components/advertisement_frame.dart';
 
 class Main extends StatelessWidget {
-  final Function onVerticalDragStart;
-  final double height;
-  final Widget info;
-  bool visible = false;
+  final void Function(DragStartDetails)? onVerticalDragStart;
+  final double? height;
+  final Widget? info;
+  bool visible;
 
-  Main({this.onVerticalDragStart, this.height, this.visible, this.info});
+  Main({this.onVerticalDragStart, this.height, this.visible = false, this.info});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class Main extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             GestureDetector(
-              onVerticalDragStart: onVerticalDragStart,
+              onVerticalDragStart: onVerticalDragStart!,
               child: Padding(
                 padding: EdgeInsets.only(
                   left: 15.0,
@@ -85,7 +85,7 @@ class Main extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              info,
+                              info!,
                             ],
                           ),
                         )

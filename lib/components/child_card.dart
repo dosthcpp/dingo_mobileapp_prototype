@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class ChildCard extends StatelessWidget {
   ChildCard({
-    @required this.childName,
-    @required this.age,
+    required this.childName,
+    required this.age,
   });
 
   final String childName;
