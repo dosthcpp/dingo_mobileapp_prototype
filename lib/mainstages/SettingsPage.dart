@@ -126,7 +126,11 @@ class _SettingsMenuItem extends StatelessWidget {
         horizontal: 5.0,
       ),
       child: MaterialButton(
-        color: Colors.black54,
+        elevation: 0,
+        hoverElevation: 0,
+        focusElevation: 0,
+        highlightElevation: 0,
+        color: Colors.white,
         child: Row(
           children: <Widget>[
             Padding(

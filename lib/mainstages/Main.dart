@@ -1,5 +1,17 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:dingo_prototype/components/advertisement_frame.dart';
+import 'package:http/http.dart' as http;
+import 'package:fl_chart/fl_chart.dart';
+
+extension IndexedIterable<E> on Iterable<E> {
+  Iterable<T> mapIndexed<T>(T Function(E e, int i) f) {
+    var i = 0;
+    return map((e) => f(e, i++));
+  }
+}
 
 class Main extends StatelessWidget {
   final void Function(DragStartDetails)? onVerticalDragStart;
@@ -7,7 +19,12 @@ class Main extends StatelessWidget {
   final Widget? info;
   bool visible;
 
-  Main({this.onVerticalDragStart, this.height, this.visible = false, this.info});
+  Main({
+    this.onVerticalDragStart,
+    this.height,
+    this.visible = false,
+    this.info,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +61,7 @@ class Main extends StatelessWidget {
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
+                      children: [
                         Visibility(
                           visible: visible,
                           child: Text(
@@ -60,10 +77,97 @@ class Main extends StatelessWidget {
                         ),
                         Visibility(
                           visible: visible,
-                          child: Image.asset(
-                            // graph_placeholder
-                            'images/graph_placeholder.png',
-                            height: 250,
+                          child: Container(
+                            width: 300.0,
+                            height: 300.0,
+                            clipBehavior: Clip.hardEdge,
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(
+                                150.0,
+                              ),
+                              border: Border.all(
+                                color: Colors.blue,
+                                width: 4.0,
+                              ),
+                            ),
+                            child: FutureBuilder<http.Response>(
+                              future: http.get(
+                                Uri.http(
+                                  'korjarvis.asuscomm.com:5051',
+                                  '/api',
+                                ),
+                              ),
+                              builder: (ctx, snap) {
+                                if (!snap.hasData) {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
+                                var _data = json.decode(snap.data!.body);
+                                var pm10Data = new List<double>.from(
+                                    _data['historical']['pm10']['data']);
+                                var _d = pm10Data.mapIndexed((d, i) {
+                                  return FlSpot(i.toDouble(), d);
+                                });
+                                var min = pm10Data.reduce(
+                                    (curr, next) => curr < next ? curr : next);
+                                var max = pm10Data.reduce(
+                                    (curr, next) => curr > next ? curr : next);
+                                return LineChart(
+                                  LineChartData(
+                                    backgroundColor: Colors.transparent,
+                                    gridData: FlGridData(
+                                      show: true,
+                                      drawVerticalLine: false,
+                                      getDrawingHorizontalLine: (value) {
+                                        return FlLine(
+                                          color: Colors.black12,
+                                          strokeWidth: 1,
+                                          dashArray: [5, 10],
+                                        );
+                                      },
+                                    ),
+                                    titlesData: FlTitlesData(
+                                      show: false,
+                                    ),
+                                    borderData: FlBorderData(
+                                      show: false,
+                                    ),
+                                    minX: 0,
+                                    maxX: _d.length.toDouble() + 5,
+                                    minY: min - 3.0,
+                                    maxY: max + 3.0,
+                                    lineBarsData: [
+                                      LineChartBarData(
+                                        spots: _d.toList(),
+                                        isCurved: true,
+                                        colors: [
+                                          Colors.blue,
+                                        ],
+                                        barWidth: 3,
+                                        isStrokeCapRound: true,
+                                        dotData: FlDotData(
+                                          show: false,
+                                        ),
+                                        belowBarData: BarAreaData(
+                                          show: true,
+                                          gradientTo: Offset(0, 1.2),
+                                          gradientFrom: Offset(0, 0.5),
+                                          colors: [
+                                            Colors.blue,
+                                            Colors.grey.withOpacity(0.0)
+                                          ]
+                                              .map((color) =>
+                                                  color.withOpacity(0.3))
+                                              .toList(),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         ),
                         Padding(

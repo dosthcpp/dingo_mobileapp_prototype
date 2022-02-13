@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class PushNotificationProvider extends ChangeNotifier {
-  List<String> notifications = [];
+  List<Map<String, dynamic>> notifications = [];
 
-  addNotification(String noti) {
+  addNotification(Map<String, dynamic> noti) {
     notifications.add(noti);
     notifyListeners();
   }
 
-  List<String> getNotification() {
+  List<Map<String, dynamic>> getNotification() {
     return notifications;
   }
 }

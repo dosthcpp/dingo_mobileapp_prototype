@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 get today {
-  final today = DateTime.now();
-  return "${today.year}-${today.month}-${today.day}";
+  Timestamp time = Timestamp.fromDate(DateTime.now());
+  return time;
 }

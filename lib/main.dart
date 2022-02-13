@@ -17,7 +17,6 @@ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 PushNotificationProvider pushNotificationProvider = PushNotificationProvider();
 
 class ReceivedNotification {
-
   final int id;
   final String title;
   final String body;
@@ -36,28 +35,29 @@ void main() async {
   await Firebase.initializeApp();
   final IOSInitializationSettings initializationSettingsIOS =
       IOSInitializationSettings(
-          requestAlertPermission: false,
-          requestBadgePermission: false,
-          requestSoundPermission: false,
-          onDidReceiveLocalNotification: (
-            int? id,
-            String? title,
-            String? body,
-            String? payload,
-          ) async {
-            didReceiveLocalNotificationSubject.add(
-              ReceivedNotification(
-                id: id!,
-                title: title!,
-                body: body!,
-                payload: payload!,
-              ),
-            );
-          });
+    requestAlertPermission: false,
+    requestBadgePermission: false,
+    requestSoundPermission: false,
+    onDidReceiveLocalNotification: (
+      int? id,
+      String? title,
+      String? body,
+      String? payload,
+    ) async {
+      didReceiveLocalNotificationSubject.add(
+        ReceivedNotification(
+          id: id!,
+          title: title!,
+          body: body!,
+          payload: payload!,
+        ),
+      );
+    },
+  );
   final InitializationSettings initializationSettings = InitializationSettings(
     iOS: initializationSettingsIOS,
   );
-  final bool? result = await flutterLocalNotificationsPlugin
+  await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
           IOSFlutterLocalNotificationsPlugin>()
       ?.requestPermissions(

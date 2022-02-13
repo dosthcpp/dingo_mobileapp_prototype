@@ -53,6 +53,15 @@ class BottomNavigatorBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           title: Text(
+            "program",
+          ),
+          icon: Image.asset(
+            'images/business.png',
+            height: 35.0,
+          ),
+        ),
+        BottomNavigationBarItem(
+          title: Text(
             "menu",
           ),
           icon: Image.asset(
