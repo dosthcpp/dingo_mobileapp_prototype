@@ -5,11 +5,16 @@ import 'package:dingo_prototype/mainstages/SettingsPage.dart';
 import 'package:dingo_prototype/providers/pushNotificationProvider.dart';
 import 'package:dingo_prototype/screens/AgreementDetail.dart';
 import 'package:dingo_prototype/screens/notificationPage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'dart:io' show Platform;
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -33,6 +38,9 @@ class ReceivedNotification {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await FirebaseAppCheck.instance
+      .activate();
+  await FirebaseAuth.instance.signInAnonymously();
   final IOSInitializationSettings initializationSettingsIOS =
       IOSInitializationSettings(
     requestAlertPermission: false,
@@ -54,8 +62,11 @@ void main() async {
       );
     },
   );
+  const AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings('@mipmap/ic_launcher');
   final InitializationSettings initializationSettings = InitializationSettings(
     iOS: initializationSettingsIOS,
+    android: initializationSettingsAndroid,
   );
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<

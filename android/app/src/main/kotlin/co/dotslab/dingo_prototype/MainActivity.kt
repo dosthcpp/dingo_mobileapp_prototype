@@ -1,4 +1,4 @@
-package tech.dotslab.dingo.dingo_prototype
+package co.dotslab.dingoprototype
 
 import io.flutter.embedding.android.FlutterActivity
 

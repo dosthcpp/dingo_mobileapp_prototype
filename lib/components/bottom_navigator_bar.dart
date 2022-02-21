@@ -16,54 +16,42 @@ class BottomNavigatorBar extends StatelessWidget {
       onTap: onTap!,
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          title: Text(
-            "home",
-          ),
+          label: "home",
           icon: Image.asset(
             'images/home.png',
             height: 35.0,
           ),
         ),
         BottomNavigationBarItem(
-          title: Text(
-            "message",
-          ),
+          label: "message",
           icon: Image.asset(
             'images/message.png',
             height: 35.0,
           ),
         ),
         BottomNavigationBarItem(
-          title: Text(
-            "calendar",
-          ),
+          label: "calendar",
           icon: Image.asset(
             'images/daily.png',
             height: 35.0,
           ),
         ),
         BottomNavigationBarItem(
-          title: Text(
-            "calendar",
-          ),
+          label: "calendar",
           icon: Image.asset(
             'images/agreement.png',
             height: 35.0,
           ),
         ),
         BottomNavigationBarItem(
-          title: Text(
-            "program",
-          ),
+          label: "program",
           icon: Image.asset(
             'images/business.png',
             height: 35.0,
           ),
         ),
         BottomNavigationBarItem(
-          title: Text(
-            "menu",
-          ),
+          label: "menu",
           icon: Image.asset(
             'images/others.png',
             height: 35.0,

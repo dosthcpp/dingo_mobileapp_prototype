@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "639599143481-qpqhbl5gr9vroc7lcak23mi3fuv4ggqr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.dotslab.dingoprototype",
+            "certificate_hash": "15e47044ab6feb1de5dd311d4977d70bb8abe8df"
+          }
+        },
+        {
           "client_id": "639599143481-hsiu4p9ocmaan46og4p2bp9muil6kdjh.apps.googleusercontent.com",
           "client_type": 3
         }
